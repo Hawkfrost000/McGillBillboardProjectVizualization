@@ -5,9 +5,9 @@ import csv
 # this is a group of scripts which are designed to process the list of song files from the McGill Billboard Corpus
 # and produce a series of csvs which can then be imported into a database
 
+# this method goes through all the files and loads them into memory so that they can be used by other methods 
 # in order for this script to work, all the song files need to be in the same directory, but you change the filename
-# variable to 
-
+# variable to follow a different path if you need to.
 def getAllFiles():
 	startNumFiles = 3
 	endNumFiles = 892
@@ -30,21 +30,25 @@ def getAllFiles():
 								  #				 "lines"]] 
 	return allFiles
 
-# a little 
+# the first four rows of these files are formatted like;
+# 		Title: A Song Title
+# this script splits the string at the character ":" and returns the second part, the actual song title/artist name, etc.
 def splitAndStrip(string):
 	return string.split(": ")[1].strip("\n")
 
-# creates a file with a summary of song information
+# This method looks at the first four lines of each file to create a summary of each song
 # a csv with each song's Song_ID, Name, Artist, Metre, and Tonic
 def summarizeSongData(list_of_files):
 	song_id = 1
 	out = open("song_summary.csv", "w")
 	out.write("Song_ID,Song_Name,Artist,Metre,Tonic\n")
 	for file in list_of_files:
+		# the first two lines are always name and artist
 		name = splitAndStrip(file[0])
 		artist =  splitAndStrip(file[1])
 		third = file[2]
 		fourth = file[3]
+		# the third and fourth line (Metre and Tonic) dont have a consistent order, so we need to check which is which
 		if "# metre" in third:
 			metre = splitAndStrip(third)
 			tonic = splitAndStrip(fourth)
@@ -55,6 +59,7 @@ def summarizeSongData(list_of_files):
 		out.write(string)
 		song_id += 1
 
+# This method finds the song name, which is always the first line, and the duration, which is always the second to last line
 # creates a csv with each song's Song_ID, Name, and Duration
 def writeSongDuration(list_of_files):
 	song_id = 1
