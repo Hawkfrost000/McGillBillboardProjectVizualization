@@ -36,6 +36,9 @@ def getAllFiles():
 def splitAndStrip(string):
 	return string.split(": ")[1].strip("\n")
 
+def findChords(line):
+	return re.findall(r"\| [a-zA-Z0-9\(\)\s:]+", line)
+
 # This method looks at the first four lines of each file to create a summary of each song
 # a csv with each song's Song_ID, Name, Artist, Metre, and Tonic
 def summarizeSongData(list_of_files):
@@ -81,7 +84,7 @@ def getAllChords(list_of_files):
 	allChords = []
 	for file in list_of_files:
 		for line in file:
-			chords = re.findall(r"\| \w+:\w+", line)
+			chords = findChords(line)
 			for chord in chords:
 				strippedChord = chord.strip("|").strip()
 				if strippedChord not in allChords:
@@ -106,7 +109,7 @@ def getSongChords(list_of_files):
 		out.write("Tonic: " + tonic + "\n")
 		out.write("Chords:\n")
 		for line in file:
-			chords = re.findall(r"\| \w+:\w+", line)
+			chords = findChords(line)
 			for chord in chords:
 				strippedChord = chord.strip("|").strip()
 				out.write(strippedChord + "\n")
@@ -127,7 +130,7 @@ def getSongChordsCSV(list_of_files):
 				tonic = splitAndStrip(third)
 			string_of_chords = ""
 			for line in file:
-				chords = re.findall(r"\| \w+:\w+", line)
+				chords = findChords(line)
 				for chord in chords:
 					strippedChord = chord.strip("|").strip()
 					string_of_chords += strippedChord + ","
@@ -151,7 +154,7 @@ def getSongChordsCSVWithoutRepeats(list_of_files):
 			string_of_chords = ""
 			last_chord = ""
 			for line in file:
-				chords = re.findall(r"\| \w+:\w+", line)
+				chords = findChords(line)
 				for chord in chords:
 					strippedChord = chord.strip("|").strip()
 					if strippedChord != last_chord:
@@ -177,7 +180,7 @@ def getUniqueSongChords(list_of_files):
 		out.write("Tonic: " + tonic + "\n")
 		out.write("Chords:\n")
 		for line in file:
-			chords = re.findall(r"\| \w+:\w+", line)
+			chords = findChords(line)
 			for chord in chords:
 				strippedChord = chord.strip("|").strip()
 				if strippedChord not in song_chords:
@@ -201,7 +204,7 @@ def getUniqueSongChordsCSV(list_of_files):
 				tonic = splitAndStrip(third)
 			string_of_chords = ""
 			for line in file:
-				chords = re.findall(r"\| \w+:\w+", line)
+				chords = findChords(line)
 				for chord in chords:
 					strippedChord = chord.strip("|").strip()
 					if strippedChord not in song_chords:
