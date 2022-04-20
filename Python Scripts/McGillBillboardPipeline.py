@@ -36,6 +36,8 @@ def getAllFiles():
 def splitAndStrip(string):
 	return string.split(": ")[1].strip("\n")
 
+# this regular expression is pretty complicted, if you're looking to understand it you can head to https://regex101.com/ which 
+# will help
 def findChords(line):
 	return re.findall(r"\| \w+:[a-zA-Z0-9\(\)\s:\#]+", line)
 
