@@ -37,7 +37,7 @@ def splitAndStrip(string):
 	return string.split(": ")[1].strip("\n")
 
 def findChords(line):
-	return re.findall(r"\| [a-zA-Z0-9\(\)\s:]+", line)
+	return re.findall(r"\| \w+:[a-zA-Z0-9\(\)\s:\#]+", line)
 
 # This method looks at the first four lines of each file to create a summary of each song
 # a csv with each song's Song_ID, Name, Artist, Metre, and Tonic

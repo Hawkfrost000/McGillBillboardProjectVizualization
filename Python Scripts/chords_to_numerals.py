@@ -62,9 +62,9 @@ def convertFile(infile_name, outfile_name):
 			file_writer.writerow([song_id, tonic, numeral_chords])
 
 def main():
-	convertFile("songs_and_unique_chords.csv", "songs_and_unique_chords_numerals.csv")
-	convertFile("songs_and_chords.csv", "songs_and_chords_numerals.csv")
-	convertFile("songs_and_chords_no_repeats.csv", "songs_and_chords_numerals_no_repeats.csv")
+	convertFile("songs_and_chords.csv", "songs_and_roman_chords.csv")
+	convertFile("songs_and_unique_chords.csv", "songs_and_unique_roman_chords.csv")
+	convertFile("songs_and_chords_no_repeats.csv", "songs_and_roman_chords_no_repeats.csv")			
 
 if __name__ == "__main__":
 	main()
