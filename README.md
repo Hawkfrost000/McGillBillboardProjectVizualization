@@ -14,4 +14,7 @@ If you havent worked with SQL before, you can find a setup tutorial [here](https
 The Tables I build using the CSV files you can find in the Resulting Files folder look something like this: 
 <img width="462" alt="song_database" src="https://user-images.githubusercontent.com/43019110/164148443-a9b876b8-1313-4c2b-9093-3ffae904964e.PNG">
 
-Essentially the song_summary table contains the `song_id` which is used to connect all of the tables together with queries like `SELECT song_summary.Song_Name FROM song_summary INNER JOIN roman_chords_no_repeats ON song_summary.Song_ID = songs_and_chords_no_repeats.Song_ID WHERE songs_and_chords_no_repeats.Chords LIKE ?`. You can certainly modify these to fit your own needs, but that will impact the existing queries that I've written in the DatabaseConnection class. 
+Essentially the song_summary table contains the `song_id` which is used to connect all of the tables together with queries like:  
+`SELECT song_summary.Song_Name FROM song_summary INNER JOIN roman_chords_no_repeats ON song_summary.Song_ID = songs_and_chords_no_repeats.Song_ID WHERE songs_and_chords_no_repeats.Chords LIKE %C:maj%`.  
+Where two different tables are joined together to access data from both of them. In this case we're selecting the name of a song based on whether or not it's chords include a `C:maj` chord.   
+You can certainly modify these to fit your own needs, but that will impact the existing queries that I've written in the DatabaseConnection class. 
